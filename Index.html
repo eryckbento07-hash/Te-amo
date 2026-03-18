@@ -3,182 +3,185 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Julia</title>
+<title>Para Julia 💖</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300&display=swap" rel="stylesheet">
 
 <style>
 body {
   margin: 0;
-  background: #fbf8f8;
   font-family: 'Inter', sans-serif;
-  color: #5a5a5a;
+  background: radial-gradient(circle at center, #3a0a3f, #120012);
+  color: white;
+  text-align: center;
 }
 
-/* tela inicial */
-#start {
+/* FUNDO COM BRILHO */
+.glow {
   position: fixed;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #fbf8f8;
-  cursor: pointer;
-  text-align: center;
-}
-
-#start h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 26px;
-  color: #c98b95;
-  margin-bottom: 8px;
-  font-weight: 500;
-}
-
-#start span {
-  font-size: 13px;
-  opacity: 0.5;
-}
-
-/* layout carta */
-#content {
-  display: none;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-}
-
-.card {
   width: 100%;
-  max-width: 520px;
-  background: #ffffff;
-  padding: 42px 32px;
-  border-radius: 14px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.04);
-  text-align: center;
-  animation: fade 1.2s ease;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255,0,150,0.2), transparent 70%);
+  z-index: 0;
 }
 
-h2 {
+/* CONTAINER */
+.container {
+  position: relative;
+  z-index: 1;
+  padding: 30px 20px;
+}
+
+/* TÍTULO */
+h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 24px;
-  color: #c98b95;
-  margin-bottom: 28px;
-}
-
-.texto {
-  font-size: 16px;
-  line-height: 1.9;
-  white-space: pre-line;
-}
-
-#tempo {
-  margin-top: 28px;
-  font-size: 14px;
-  color: #999;
-  line-height: 1.6;
+  font-size: 36px;
+  margin-top: 40px;
 }
 
 .heart {
-  margin-top: 25px;
-  font-size: 18px;
-  opacity: 0.8;
+  font-size: 40px;
+  color: #ff6fa5;
 }
 
-/* animação suave */
-@keyframes fade {
-  from {opacity: 0; transform: translateY(8px);}
-  to {opacity: 1; transform: translateY(0);}
+/* DATA */
+.date {
+  margin: 15px 0;
+  opacity: 0.7;
 }
+
+/* CAIXAS */
+.boxes {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.box {
+  background: rgba(255,255,255,0.05);
+  border-radius: 15px;
+  padding: 20px;
+  width: 100px;
+  backdrop-filter: blur(10px);
+}
+
+.box span {
+  font-size: 28px;
+  display: block;
+}
+
+.box small {
+  opacity: 0.6;
+}
+
+/* RELÓGIO */
+.clock {
+  margin-top: 25px;
+  padding: 12px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+  display: inline-block;
+}
+
+/* TEXTO */
+.card {
+  margin-top: 40px;
+  padding: 25px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  line-height: 1.8;
+}
+
+/* BOTÃO MÚSICA */
+.music {
+  margin-top: 30px;
+  padding: 15px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+  cursor: pointer;
+}
+
 </style>
 </head>
 
 <body>
 
-<div id="start" onclick="abrir()">
-  <h1>Para você, Julia</h1>
-  <span>toque para abrir</span>
+<div class="glow"></div>
+
+<div class="container">
+
+<div class="heart">💖</div>
+<h1>Para o amor da minha vida</h1>
+
+<div class="date">
+Juntos desde <b>20 de novembro de 2025</b>
 </div>
 
-<div id="content">
-  <div class="card">
-    <h2>Julia</h2>
-    <div id="mensagem" class="texto"></div>
-    <div id="tempo"></div>
-    <div class="heart">❤</div>
+<div class="boxes">
+  <div class="box">
+    <span id="meses">0</span>
+    <small>MESES</small>
+  </div>
+  <div class="box">
+    <span id="dias">0</span>
+    <small>DIAS</small>
   </div>
 </div>
 
-<!-- música -->
-<iframe width="0" height="0"
-src="https://www.youtube.com/embed/ILRs2r6lcHY?autoplay=1&loop=1&playlist=ILRs2r6lcHY"
+<div class="clock" id="relogio">00:00:00</div>
+
+<div class="card">
+Desde o primeiro dia em que te vi, soube que minha vida jamais seria a mesma...
+
+Você é meu porto seguro, minha paz e minha maior aventura. 💖
+</div>
+
+<div class="music" onclick="tocarMusica()">
+▶ Clique para tocar nossa música
+</div>
+
+</div>
+
+<!-- MÚSICA -->
+<iframe id="player" width="0" height="0"
+src=""
 allow="autoplay"></iframe>
 
 <script>
-function abrir() {
-  document.getElementById("start").style.display = "none";
-  document.getElementById("content").style.display = "flex";
+const dataInicio = new Date("2025-11-20T00:00:00"); // ALTERA
 
-  escrever();
-  setInterval(calcularTempo, 1000);
-}
-
-/* texto estilo DearYou */
-const texto = `Julia,
-
-eu não quero apressar nada.
-
-quero te conhecer com calma,
-no seu tempo,
-do seu jeito.
-
-quero ser alguém leve na sua vida,
-alguém que te faça bem,
-que te respeita,
-e que escolhe você todos os dias.
-
-porque você é especial pra mim.`;
-
-/* efeito digitação */
-let i = 0;
-function escrever() {
-  if (i < texto.length) {
-    document.getElementById("mensagem").innerHTML += texto.charAt(i);
-    i++;
-    setTimeout(escrever, 28);
-  }
-}
-
-/* data relacionamento */
-const dataInicio = new Date("2025-12-10T00:00:00"); // ALTERA
-
-function calcularTempo() {
+function atualizarTempo() {
   const agora = new Date();
 
-  let anos = agora.getFullYear() - dataInicio.getFullYear();
-  let meses = agora.getMonth() - dataInicio.getMonth();
-  let dias = agora.getDate() - dataInicio.getDate();
-  let horas = agora.getHours() - dataInicio.getHours();
-  let minutos = agora.getMinutes() - dataInicio.getMinutes();
-  let segundos = agora.getSeconds() - dataInicio.getSeconds();
+  let meses = (agora.getFullYear() - dataInicio.getFullYear()) * 12;
+  meses += agora.getMonth() - dataInicio.getMonth();
 
-  if (segundos < 0) { segundos += 60; minutos--; }
-  if (minutos < 0) { minutos += 60; horas--; }
-  if (horas < 0) { horas += 24; dias--; }
+  let dias = agora.getDate() - dataInicio.getDate();
   if (dias < 0) {
     meses--;
-    dias += new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
+    const ultimoMes = new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
+    dias += ultimoMes;
   }
-  if (meses < 0) { meses += 12; anos--; }
 
-  document.getElementById("tempo").innerHTML =
-    `${anos} anos, ${meses} meses, ${dias} dias<br>
-     ${horas}h ${minutos}m ${segundos}s`;
+  let horas = agora.getHours().toString().padStart(2,'0');
+  let minutos = agora.getMinutes().toString().padStart(2,'0');
+  let segundos = agora.getSeconds().toString().padStart(2,'0');
+
+  document.getElementById("meses").innerText = meses;
+  document.getElementById("dias").innerText = dias;
+  document.getElementById("relogio").innerText = `${horas}:${minutos}:${segundos}`;
+}
+
+setInterval(atualizarTempo, 1000);
+
+/* MÚSICA */
+function tocarMusica() {
+  document.getElementById("player").src =
+  "https://www.youtube.com/embed/ILRs2r6lcHY?autoplay=1&loop=1&playlist=ILRs2r6lcHY";
 }
 </script>
 
 </body>
-  </html>
+</html>
