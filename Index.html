@@ -17,70 +17,148 @@ body {
   text-align: center;
 }
 
-/* CONTAINER */
-.container {padding:30px 20px;}
+.glow {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255,105,180,0.2), transparent 70%);
+  animation: pulse 6s infinite alternate;
+}
+
+@keyframes pulse {
+  from {opacity: 0.4;}
+  to {opacity: 0.8;}
+}
+
+.container { padding: 30px 20px; }
+
+.heart { font-size: 45px; color: #ff6fa5; }
 
 .title {
   font-family: 'Playfair Display', serif;
-  font-size: 38px;
+  font-size: 40px;
   margin-top: 20px;
 }
 
-/* CAIXAS */
+.date { margin-top: 15px; opacity: 0.7; }
+
 .boxes {
-  display:flex;
-  justify-content:center;
-  gap:20px;
-  margin-top:30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
 }
 
 .box {
-  width:120px;
-  height:120px;
-  border-radius:25px;
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(20px);
-  border:1px solid rgba(255,105,180,0.4);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
+  width: 120px;
+  height: 120px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,105,180,0.4);
+  box-shadow: 0 0 25px rgba(255,105,180,0.25), inset 0 0 10px rgba(255,255,255,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .box span {
-  font-size:40px;
-  font-family:'Playfair Display', serif;
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  color: #ffd6e7;
 }
 
-/* MÚSICA */
-.music-card {
-  margin-top:50px;
-  padding:30px;
-  border-radius:25px;
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(20px);
+.box small {
+  margin-top: 5px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #ff8fc4;
 }
+
+.clock {
+  margin-top: 30px;
+  padding: 15px 25px;
+  border-radius: 30px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,105,180,0.3);
+  font-size: 20px;
+  letter-spacing: 3px;
+}
+
+.total {
+  margin-top: 20px;
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+.card {
+  margin-top: 40px;
+  padding: 25px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  line-height: 1.8;
+  text-align: left;
+}
+
+.music-card {
+  margin-top: 50px;
+  padding: 35px 20px;
+  border-radius: 30px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,105,180,0.3);
+  box-shadow: 0 0 30px rgba(255,105,180,0.15), inset 0 0 10px rgba(255,255,255,0.05);
+}
+
+.music-icon { font-size: 30px; color: #ff7eb3; }
 
 .music-btn {
-  margin-top:20px;
-  padding:15px;
-  border-radius:20px;
-  background:rgba(0,0,0,0.3);
-  cursor:pointer;
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 20px;
+  background: rgba(0,0,0,0.3);
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(255,105,180,0.2);
 }
 
-/* PLAYER */
-.spotify {
-  margin-top:20px;
+.music-img {
+  width: 100%;
+  max-width: 250px;
+  border-radius: 20px;
+  margin: 15px auto;
+  display: block;
+  box-shadow: 0 0 25px rgba(255,105,180,0.3);
+}
+
+.music-name {
+  font-family: 'Playfair Display', serif;
+  margin-top: 10px;
+}
+
+.music-notes {
+  margin-top: 20px;
+  color: #ff8fc4;
+  opacity: 0.6;
+  letter-spacing: 10px;
 }
 </style>
 </head>
 
 <body>
 
+<div class="glow"></div>
+
 <div class="container">
 
-<h1 class="title">Para Julia 💖</h1>
+<div class="heart">💖</div>
+<div class="title">Para o amor da minha vida!</div>
+
+<div class="date">
+Juntos desde <b>08 de janeiro de 2026</b>
+</div>
 
 <div class="boxes">
   <div class="box">
@@ -94,79 +172,98 @@ body {
   </div>
 </div>
 
+<div class="clock" id="clock">00:00:00</div>
+<div class="total" id="totalDias">✨ 0 dias de amor ✨</div>
+
+<div class="card">
+Julia,
+
+Desde que você entrou na minha vida, tudo ficou mais bonito...
+
+Você já é muito importante pra mim. 💖
+</div>
+
 <!-- MÚSICA -->
 <div class="music-card">
 
-<h2>Nossa Música 🎵</h2>
+  <div class="music-icon">🎵</div>
 
-<div class="music-btn" id="btnDescobrir" onclick="descobrir()">
-▶ Clique para descobrir
-</div>
+  <h2>Nossa Música</h2>
 
-<div id="musicaInfo" style="display:none;">
+  <div class="music-btn" id="btnDescobrir" onclick="descobrir()">
+    ▶ Clique para descobrir
+  </div>
 
-  <p style="margin-top:15px;">
-    Nossa música especial 💖
-  </p>
+  <div id="musicaInfo" style="display:none;">
 
-  <!-- PLAYER SPOTIFY -->
-  <iframe id="spotifyPlayer"
-    style="border-radius:12px"
-    src=""
-    width="100%"
-    height="152"
-    frameBorder="0"
-    allowfullscreen=""
-    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-  </iframe>
+    <img src="https://img.youtube.com/vi/sRITrFmTT3s/maxresdefault.jpg" class="music-img">
 
-  <!-- BOTÕES -->
-  <div class="music-btn" onclick="tocar()">▶ Tocar</div>
-  <div class="music-btn" onclick="pausar()">⏸ Pausar</div>
+    <div class="music-name">
+      Nossa música 💖
+    </div>
+
+    <div class="music-btn" onclick="tocar()">▶ Ouvir agora</div>
+    <div class="music-btn" onclick="pausar()">⏸ Pausar</div>
+
+  </div>
+
+  <div class="music-notes">♪ ♪ ♪</div>
 
 </div>
 
 </div>
 
-</div>
+<iframe id="player" width="0" height="0" allow="autoplay"></iframe>
 
 <script>
-const inicio = new Date(2026,0,8);
+const inicio = new Date(2026, 0, 8);
 
-function atualizar(){
+function atualizar() {
   const agora = new Date();
 
-  let meses = (agora.getFullYear()-inicio.getFullYear())*12;
-  meses += agora.getMonth()-inicio.getMonth();
+  let anos = agora.getFullYear() - inicio.getFullYear();
+  let meses = agora.getMonth() - inicio.getMonth();
+  let dias = agora.getDate() - inicio.getDate();
 
-  let dias = agora.getDate()-inicio.getDate();
-  if(dias<0){
+  if (dias < 0) {
     meses--;
-    dias += new Date(agora.getFullYear(), agora.getMonth(),0).getDate();
+    dias += new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
   }
 
-  document.getElementById("meses").innerText = meses;
+  if (meses < 0) {
+    anos--;
+    meses += 12;
+  }
+
+  const totalMeses = anos * 12 + meses;
+  const totalDias = Math.floor((agora - inicio) / (1000*60*60*24));
+
+  let h = String(agora.getHours()).padStart(2,'0');
+  let m = String(agora.getMinutes()).padStart(2,'0');
+  let s = String(agora.getSeconds()).padStart(2,'0');
+
+  document.getElementById("meses").innerText = totalMeses;
   document.getElementById("dias").innerText = dias;
+  document.getElementById("clock").innerText = `${h}:${m}:${s}`;
+  document.getElementById("totalDias").innerText = `✨ ${totalDias} dias de amor ✨`;
 }
 
-setInterval(atualizar,1000);
+setInterval(atualizar, 1000);
 
-/* BOTÕES */
-function descobrir(){
-  document.getElementById("btnDescobrir").style.display="none";
-  document.getElementById("musicaInfo").style.display="block";
+function descobrir() {
+  document.getElementById("btnDescobrir").style.display = "none";
+  document.getElementById("musicaInfo").style.display = "block";
 }
 
-/* SPOTIFY */
-function tocar(){
-  document.getElementById("spotifyPlayer").src =
-  "https://open.spotify.com/embed/track/3vit743HobxF9rQxrMZf1c?utm_source=generator&autoplay=1";
+function tocar() {
+  document.getElementById("player").src =
+  "https://www.youtube.com/embed/sRITrFmTT3s?autoplay=1&loop=1&playlist=sRITrFmTT3s";
 }
 
-function pausar(){
-  document.getElementById("spotifyPlayer").src = "";
+function pausar() {
+  document.getElementById("player").src = "";
 }
 </script>
 
 </body>
-</html>
+  </html>
