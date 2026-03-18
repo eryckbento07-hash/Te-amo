@@ -31,12 +31,11 @@ body {
   to {opacity: 0.8;}
 }
 
-/* CONTAINER */
 .container {
   padding: 30px 20px;
 }
 
-/* TÍTULO */
+/* TOPO */
 .heart {
   font-size: 45px;
   color: #ff6fa5;
@@ -48,11 +47,9 @@ body {
   margin-top: 20px;
 }
 
-/* DATA */
 .date {
   margin-top: 15px;
   opacity: 0.7;
-  font-size: 15px;
 }
 
 /* CAIXAS */
@@ -109,17 +106,16 @@ body {
 
   font-size: 20px;
   letter-spacing: 3px;
-  display: inline-block;
 }
 
-/* TEXTO DIAS */
+/* TOTAL */
 .total {
   margin-top: 20px;
   font-size: 16px;
   opacity: 0.8;
 }
 
-/* CARD */
+/* TEXTO */
 .card {
   margin-top: 40px;
   padding: 25px;
@@ -132,13 +128,65 @@ body {
   text-align: left;
 }
 
-/* BOTÃO */
-.btn {
+/* MÚSICA */
+.music-card {
+  margin-top: 50px;
+  padding: 35px 20px;
+  border-radius: 30px;
+
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255,105,180,0.3);
+
+  box-shadow:
+    0 0 30px rgba(255,105,180,0.15),
+    inset 0 0 10px rgba(255,255,255,0.05);
+}
+
+.music-icon {
+  font-size: 30px;
+  color: #ff7eb3;
+}
+
+.music-card h2 {
+  font-family: 'Playfair Display', serif;
+  margin-top: 10px;
+}
+
+.music-card p {
+  margin-top: 5px;
+  opacity: 0.7;
+}
+
+.music-btn {
   margin-top: 25px;
-  padding: 12px 20px;
+  padding: 15px;
   border-radius: 20px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(0,0,0,0.3);
   cursor: pointer;
+  box-shadow: 0 0 25px rgba(255,105,180,0.2);
+}
+
+.music-img {
+  width: 100%;
+  max-width: 250px;
+  border-radius: 20px;
+  margin: 15px auto;
+  display: block;
+  box-shadow: 0 0 25px rgba(255,105,180,0.3);
+}
+
+.music-name {
+  font-family: 'Playfair Display', serif;
+  margin-top: 10px;
+}
+
+.music-notes {
+  margin-top: 20px;
+  color: #ff8fc4;
+  opacity: 0.6;
+  letter-spacing: 10px;
 }
 </style>
 </head>
@@ -169,24 +217,51 @@ Juntos desde <b>08 de janeiro de 2026</b>
 </div>
 
 <div class="clock" id="clock">00:00:00</div>
-
 <div class="total" id="totalDias">✨ 0 dias de amor ✨</div>
 
 <div class="card">
 Julia,
 
-Desde que você entrou na minha vida, tudo ficou mais leve, mais bonito e mais verdadeiro.
+Desde que você entrou na minha vida, tudo ficou mais bonito.
 
-Cada conversa nossa, cada momento simples, cada detalhe seu… tudo isso me fez perceber o quanto você é especial.
+Cada momento ao seu lado virou algo especial, cada conversa nossa tem um valor enorme pra mim.
 
-Eu não quero apressar nada, quero viver isso do jeito certo, com calma, construindo algo de verdade.
+Eu não quero só viver algo passageiro… quero construir algo de verdade com você.
 
-Mas uma coisa é certa: você já se tornou muito importante pra mim.
+Com calma, com respeito, com carinho… mas principalmente com sentimento.
 
-E eu vou continuar aqui… te respeitando, te valorizando e te mostrando, aos poucos, o quanto você significa pra mim. 💖
+Porque você já é muito importante pra mim. 💖
 </div>
 
-<div class="btn" onclick="tocar()">▶ Tocar nossa música</div>
+<!-- MÚSICA -->
+<div class="music-card">
+
+  <div class="music-icon">🎵</div>
+
+  <h2>Nossa Música</h2>
+  <p>A trilha sonora do nosso amor</p>
+
+  <div class="music-btn" id="btnDescobrir" onclick="descobrir()">
+    ▶ Clique para descobrir
+  </div>
+
+  <div id="musicaInfo" style="display:none;">
+
+    <img src="https://img.youtube.com/vi/ILRs2r6lcHY/maxresdefault.jpg" class="music-img">
+
+    <div class="music-name">
+      Vejo Enfim a Luz Brilhar ✨
+    </div>
+
+    <div class="music-btn" onclick="tocar()">
+      ▶ Ouvir agora
+    </div>
+
+  </div>
+
+  <div class="music-notes">♪ ♪ ♪</div>
+
+</div>
 
 </div>
 
@@ -213,9 +288,7 @@ function atualizar() {
   }
 
   const totalMeses = anos * 12 + meses;
-
-  const diffTempo = agora - inicio;
-  const totalDias = Math.floor(diffTempo / (1000 * 60 * 60 * 24));
+  const totalDias = Math.floor((agora - inicio) / (1000*60*60*24));
 
   let h = String(agora.getHours()).padStart(2,'0');
   let m = String(agora.getMinutes()).padStart(2,'0');
@@ -228,6 +301,11 @@ function atualizar() {
 }
 
 setInterval(atualizar, 1000);
+
+function descobrir() {
+  document.getElementById("btnDescobrir").style.display = "none";
+  document.getElementById("musicaInfo").style.display = "block";
+}
 
 function tocar() {
   document.getElementById("player").src =
