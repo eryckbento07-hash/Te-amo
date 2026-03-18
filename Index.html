@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Você ❤️</title>
+<title>Para Julia ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300&display=swap" rel="stylesheet">
 
@@ -34,11 +34,6 @@ body {
   color: #e89cae;
 }
 
-#start p {
-  font-size: 16px;
-  opacity: 0.7;
-}
-
 /* CONTEÚDO */
 #content {
   display: none;
@@ -52,7 +47,6 @@ body {
 h2 {
   font-family: 'Playfair Display', serif;
   font-size: 28px;
-  margin-bottom: 20px;
 }
 
 p {
@@ -61,13 +55,19 @@ p {
   white-space: pre-line;
 }
 
-/* ANIMAÇÃO */
+#tempoJuntos {
+  margin-top: 25px;
+  font-size: 18px;
+  color: #666;
+  font-weight: bold;
+}
+
+/* ANIMAÇÕES */
 @keyframes fadeIn {
   from {opacity: 0;}
   to {opacity: 1;}
 }
 
-/* CORAÇÃO */
 .heart {
   margin-top: 30px;
   font-size: 24px;
@@ -84,37 +84,46 @@ p {
 
 <body>
 
-<!-- TELA INICIAL -->
 <div id="start" onclick="abrir()">
-  <h1>Uma mensagem pra você</h1>
-  <p>clique para abrir 💌</p>
+  <h1>Uma mensagem para você, Julia 💌</h1>
+  <p>clique para abrir</p>
 </div>
 
-<!-- CONTEÚDO -->
 <div id="content">
-  <h2>Para você 💖</h2>
+  <h2>Para Julia 💖</h2>
   <p id="mensagem"></p>
+  <div id="tempoJuntos"></div>
   <div class="heart">❤️</div>
 </div>
+
+<!-- MÚSICA -->
+<iframe width="0" height="0"
+src="https://www.youtube.com/embed/ILRs2r6lcHY?autoplay=1&loop=1&playlist=ILRs2r6lcHY"
+allow="autoplay"></iframe>
 
 <script>
 function abrir() {
   document.getElementById("start").style.display = "none";
   document.getElementById("content").style.display = "block";
+  
   escrever();
+  setInterval(calcularTempo, 1000);
 }
 
-const texto = `Eu não quero apressar as coisas...
+/* TEXTO */
+const texto = `Julia...
+
+Eu não quero apressar as coisas.
 
 Quero te conhecer no seu tempo,
 entender cada detalhe seu,
 e te amar com calma...
 
-Quero ser alguém que te faz bem,
+Quero ser alguém que te faça bem,
 que respeita seu espaço,
 e que escolhe você todos os dias.
 
-Porque você é especial pra mim. 💖`;
+Porque você é muito especial pra mim. 💖`;
 
 let i = 0;
 
@@ -124,6 +133,51 @@ function escrever() {
     i++;
     setTimeout(escrever, 35);
   }
+}
+
+/* DATA INICIAL */
+const dataInicio = new Date("2025-12-10T00:00:00"); // ALTERA AQUI
+
+function calcularTempo() {
+  const agora = new Date();
+
+  let anos = agora.getFullYear() - dataInicio.getFullYear();
+  let meses = agora.getMonth() - dataInicio.getMonth();
+  let dias = agora.getDate() - dataInicio.getDate();
+  let horas = agora.getHours() - dataInicio.getHours();
+  let minutos = agora.getMinutes() - dataInicio.getMinutes();
+  let segundos = agora.getSeconds() - dataInicio.getSeconds();
+
+  if (segundos < 0) {
+    segundos += 60;
+    minutos--;
+  }
+
+  if (minutos < 0) {
+    minutos += 60;
+    horas--;
+  }
+
+  if (horas < 0) {
+    horas += 24;
+    dias--;
+  }
+
+  if (dias < 0) {
+    meses--;
+    const diasMes = new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
+    dias += diasMes;
+  }
+
+  if (meses < 0) {
+    meses += 12;
+    anos--;
+  }
+
+  document.getElementById("tempoJuntos").innerHTML =
+    `Estamos juntos há 💖<br>
+     ${anos} ano(s), ${meses} mês(es), ${dias} dia(s)<br>
+     ${horas}h ${minutos}m ${segundos}s`;
 }
 </script>
 
