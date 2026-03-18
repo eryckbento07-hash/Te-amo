@@ -24,16 +24,16 @@ body {
   width: 100%;
   height: 100%;
   background: url("https://www.transparenttextures.com/patterns/stardust.png");
-  animation: moveStars 60s linear infinite;
+  animation: estrelas 60s linear infinite;
   opacity: 0.3;
 }
 
-@keyframes moveStars {
+@keyframes estrelas {
   from {background-position: 0 0;}
   to {background-position: 1000px 1000px;}
 }
 
-/* ESCURECER TELA */
+/* ESCURECER */
 .overlay {
   position: fixed;
   width:100%;
@@ -44,20 +44,34 @@ body {
   pointer-events:none;
 }
 
+/* FUNDO GLOW */
+.glow {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255,105,180,0.2), transparent 70%);
+  animation: pulse 6s infinite alternate;
+}
+
+@keyframes pulse {
+  from {opacity: 0.4;}
+  to {opacity: 0.8;}
+}
+
+.container { padding: 30px 20px; }
+
 /* CORAÇÃO BATENDO */
 .heart {
   font-size: 45px;
   color: #ff6fa5;
-  animation: beat 1s infinite;
+  animation: batida 1s infinite;
 }
 
-@keyframes beat {
+@keyframes batida {
   0%{transform:scale(1);}
   50%{transform:scale(1.2);}
   100%{transform:scale(1);}
 }
-
-.container { padding: 30px 20px; }
 
 .title {
   font-family: 'Playfair Display', serif;
@@ -65,35 +79,71 @@ body {
   margin-top: 20px;
 }
 
+.date { margin-top: 15px; opacity: 0.7; }
+
+/* CAIXAS */
 .boxes {
-  display:flex;
-  justify-content:center;
-  gap:20px;
-  margin-top:40px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
 }
 
 .box {
-  width:120px;
-  height:120px;
-  border-radius:25px;
+  width: 120px;
+  height: 120px;
+  border-radius: 25px;
   background: rgba(255,255,255,0.05);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255,105,180,0.4);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+  box-shadow: 0 0 25px rgba(255,105,180,0.25), inset 0 0 10px rgba(255,255,255,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .box span {
-  font-size:40px;
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  color: #ffd6e7;
 }
 
-/* TEXTO SURGINDO */
-.card {
-  margin-top:40px;
-  padding:25px;
-  border-radius:25px;
+.box small {
+  margin-top: 5px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #ff8fc4;
+}
+
+/* RELÓGIO */
+.clock {
+  margin-top: 30px;
+  padding: 15px 25px;
+  border-radius: 30px;
   background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,105,180,0.3);
+  font-size: 20px;
+  letter-spacing: 3px;
+}
+
+/* TOTAL */
+.total {
+  margin-top: 20px;
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+/* TEXTO */
+.card {
+  margin-top: 40px;
+  padding: 25px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  line-height: 1.8;
+  text-align: left;
   opacity:0;
   transform: translateY(20px);
   transition:1s;
@@ -101,18 +151,24 @@ body {
 
 /* MÚSICA */
 .music-card {
-  margin-top:50px;
-  padding:25px;
-  border-radius:25px;
+  margin-top: 50px;
+  padding: 35px 20px;
+  border-radius: 30px;
   background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,105,180,0.3);
+  box-shadow: 0 0 30px rgba(255,105,180,0.15), inset 0 0 10px rgba(255,255,255,0.05);
 }
 
+.music-icon { font-size: 30px; color: #ff7eb3; }
+
 .music-btn {
-  margin-top:15px;
-  padding:15px;
-  border-radius:20px;
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 20px;
   background: rgba(0,0,0,0.3);
-  cursor:pointer;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(255,105,180,0.2);
   transition:0.3s;
 }
 
@@ -120,7 +176,15 @@ body {
   background:#ff6fa5;
 }
 
-/* BARRA */
+.music-img {
+  width: 100%;
+  max-width: 250px;
+  border-radius: 20px;
+  margin: 15px auto;
+  display: block;
+  box-shadow: 0 0 25px rgba(255,105,180,0.3);
+}
+
 .progress {
   width:100%;
   height:5px;
@@ -134,18 +198,24 @@ body {
   height:100%;
   width:0%;
   background:#ff6fa5;
-  animation: progress 180s linear forwards;
+  animation: barra 180s linear forwards;
 }
 
-@keyframes progress {
+@keyframes barra {
   from {width:0;}
   to {width:100%;}
 }
 
-.music-img {
-  width:200px;
-  border-radius:20px;
-  margin-top:15px;
+.music-name {
+  font-family: 'Playfair Display', serif;
+  margin-top: 10px;
+}
+
+.music-notes {
+  margin-top: 20px;
+  color: #ff8fc4;
+  opacity: 0.6;
+  letter-spacing: 10px;
 }
 </style>
 </head>
@@ -154,11 +224,16 @@ body {
 
 <div class="stars"></div>
 <div class="overlay" id="overlay"></div>
+<div class="glow"></div>
 
 <div class="container">
 
 <div class="heart">💖</div>
 <div class="title">Para o amor da minha vida!</div>
+
+<div class="date">
+Juntos desde <b>08 de janeiro de 2026</b>
+</div>
 
 <div class="boxes">
   <div class="box">
@@ -172,22 +247,50 @@ body {
   </div>
 </div>
 
+<div class="clock" id="clock">00:00:00</div>
+<div class="total" id="totalDias">✨ 0 dias de amor ✨</div>
+
 <div class="card" id="texto">
 Julia,<br><br>
-Desde que você entrou na minha vida, tudo ganhou mais cor... 💖
+
+Desde que você entrou na minha vida, tudo ganhou mais cor, mais sentido e mais verdade.<br><br>
+
+Os meus dias ficaram mais leves, e até os momentos simples se tornaram especiais só por terem você neles.<br><br>
+
+Cada conversa nossa, cada risada, cada detalhe… tudo isso tem um valor enorme pra mim, muito maior do que eu consigo explicar.<br><br>
+
+Eu não quero viver algo passageiro com você… eu quero construir algo de verdade, algo que cresça com o tempo, com paciência, com respeito e com carinho.<br><br>
+
+Quero te conhecer cada vez mais, te fazer bem, estar ao seu lado nos dias bons e principalmente nos difíceis.<br><br>
+
+Porque, sendo bem sincero… você já se tornou alguém muito importante pra mim.<br><br>
+
+E eu só quero continuar vivendo tudo isso com você. 💖
 </div>
 
 <div class="music-card">
 
-<div class="music-btn" id="btn" onclick="tocar()">▶ Descobrir música</div>
+<div class="music-icon">🎵</div>
+<h2>Nossa Música</h2>
 
-<div id="musica" style="display:none;">
+<div class="music-btn" id="btnDescobrir" onclick="descobrir()">
+▶ Clique para descobrir
+</div>
+
+<div id="musicaInfo" style="display:none;">
+
 <img src="https://img.youtube.com/vi/sRITrFmTT3s/maxresdefault.jpg" class="music-img">
 
 <div class="progress"><div></div></div>
 
+<div class="music-name">Vejo enfim a luz brilhar 💖</div>
+
+<div class="music-btn" onclick="tocar()">▶ Ouvir agora</div>
 <div class="music-btn" onclick="pausar()">⏸ Pausar</div>
+
 </div>
+
+<div class="music-notes">♪ ♪ ♪</div>
 
 </div>
 
@@ -196,40 +299,69 @@ Desde que você entrou na minha vida, tudo ganhou mais cor... 💖
 <iframe id="player" width="0" height="0" allow="autoplay"></iframe>
 
 <script>
-const inicio = new Date(2026,0,8);
+const inicio = new Date(2026, 0, 8);
 
-function atualizar(){
- const agora = new Date();
- const diff = Math.floor((agora - inicio)/(1000*60*60*24));
- document.getElementById("dias").innerText = diff;
- document.getElementById("meses").innerText = Math.floor(diff/30);
+function atualizar() {
+  const agora = new Date();
+
+  let anos = agora.getFullYear() - inicio.getFullYear();
+  let meses = agora.getMonth() - inicio.getMonth();
+  let dias = agora.getDate() - inicio.getDate();
+
+  if (dias < 0) {
+    meses--;
+    dias += new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
+  }
+
+  if (meses < 0) {
+    anos--;
+    meses += 12;
+  }
+
+  const totalMeses = anos * 12 + meses;
+  const totalDias = Math.floor((agora - inicio) / (1000*60*60*24));
+
+  let h = String(agora.getHours()).padStart(2,'0');
+  let m = String(agora.getMinutes()).padStart(2,'0');
+  let s = String(agora.getSeconds()).padStart(2,'0');
+
+  document.getElementById("meses").innerText = totalMeses;
+  document.getElementById("dias").innerText = dias;
+  document.getElementById("clock").innerText = `${h}:${m}:${s}`;
+  document.getElementById("totalDias").innerText = `✨ ${totalDias} dias de amor ✨`;
 }
-setInterval(atualizar,1000);
 
-/* REVELAÇÃO TEXTO */
-setTimeout(()=>{
- document.getElementById("texto").style.opacity=1;
- document.getElementById("texto").style.transform="translateY(0)";
-},1500);
+setInterval(atualizar, 1000);
 
-/* MÚSICA */
-function tocar(){
- document.getElementById("overlay").style.opacity=1;
+/* TEXTO ANIMAÇÃO */
+setTimeout(() => {
+  document.getElementById("texto").style.opacity = 1;
+  document.getElementById("texto").style.transform = "translateY(0)";
+}, 1200);
 
- let player = document.getElementById("player");
- player.src="https://www.youtube.com/embed/sRITrFmTT3s?autoplay=1";
-
- document.getElementById("btn").innerText="🎶 Tocando...";
- document.getElementById("btn").classList.add("playing");
-
- document.getElementById("musica").style.display="block";
+function descobrir() {
+  document.getElementById("btnDescobrir").style.display = "none";
+  document.getElementById("musicaInfo").style.display = "block";
 }
 
-function pausar(){
- document.getElementById("player").src="";
- document.getElementById("overlay").style.opacity=0;
- document.getElementById("btn").innerText="▶ Descobrir música";
- document.getElementById("btn").classList.remove("playing");
+function tocar() {
+  document.getElementById("overlay").style.opacity = 1;
+
+  document.getElementById("player").src =
+  "https://www.youtube.com/embed/sRITrFmTT3s?autoplay=1&loop=1&playlist=sRITrFmTT3s";
+
+  const btn = document.getElementById("btnDescobrir");
+  btn.innerText = "🎶 Tocando...";
+  btn.classList.add("playing");
+}
+
+function pausar() {
+  document.getElementById("player").src = "";
+  document.getElementById("overlay").style.opacity = 0;
+
+  const btn = document.getElementById("btnDescobrir");
+  btn.innerText = "▶ Clique para descobrir";
+  btn.classList.remove("playing");
 }
 </script>
 
