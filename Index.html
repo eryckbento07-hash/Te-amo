@@ -17,7 +17,6 @@ body {
   overflow-x: hidden;
 }
 
-/* FUNDO */
 .glow {
   position: fixed;
   width: 100%;
@@ -32,7 +31,6 @@ body {
   to {opacity: 0.8;}
 }
 
-/* PARTÍCULAS */
 .particle {
   position: fixed;
   width: 6px;
@@ -190,17 +188,18 @@ Julia,
 
 Desde o momento em que você entrou na minha vida, tudo começou a fazer mais sentido.
 
-Não foi algo rápido… foi algo calmo, verdadeiro, e especial.  
-Cada conversa, cada detalhe seu, cada momento que eu passo falando com você me faz perceber o quanto você é única.
+Não foi algo rápido… foi algo calmo, verdadeiro e especial.
 
-Eu não quero apressar nada…  
-Quero viver isso do jeito certo, com calma, conhecendo cada parte sua, e deixando você conhecer cada parte de mim.
+Cada detalhe seu, cada conversa nossa, cada momento simples… tudo isso foi me mostrando o quanto você é incrível.
+
+Eu não quero apressar nada.  
+Quero viver isso do jeito certo, com calma, construindo algo verdadeiro.
 
 Mas uma coisa é certa:  
 Você já se tornou muito importante pra mim.
 
-E independente do tempo, eu vou continuar aqui…  
-te respeitando, te valorizando, e mostrando com atitudes o que eu sinto.
+E eu vou continuar aqui…  
+te respeitando, te valorizando e demonstrando com atitudes.
 
 Porque você merece algo real. 💖
 </div>
@@ -218,35 +217,43 @@ Porque você merece algo real. 💖
 <iframe id="player" width="0" height="0" allow="autoplay"></iframe>
 
 <script>
-const inicio = new Date("2026-03-08T00:00:00");
+const inicio = new Date(2026, 0, 8); // 08/01/2026
 
 function atualizar() {
   const agora = new Date();
 
-  let meses = (agora.getFullYear()-inicio.getFullYear())*12;
-  meses += agora.getMonth()-inicio.getMonth();
+  let anos = agora.getFullYear() - inicio.getFullYear();
+  let meses = agora.getMonth() - inicio.getMonth();
+  let dias = agora.getDate() - inicio.getDate();
 
-  let dias = agora.getDate()-inicio.getDate();
   if (dias < 0) {
     meses--;
-    dias += new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
+    const ultimoMes = new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
+    dias += ultimoMes;
   }
+
+  if (meses < 0) {
+    anos--;
+    meses += 12;
+  }
+
+  const totalMeses = anos * 12 + meses;
 
   let h = String(agora.getHours()).padStart(2,'0');
   let m = String(agora.getMinutes()).padStart(2,'0');
   let s = String(agora.getSeconds()).padStart(2,'0');
 
-  document.getElementById("meses").innerText = meses;
+  document.getElementById("meses").innerText = totalMeses;
   document.getElementById("dias").innerText = dias;
   document.getElementById("clock").innerText = `${h}:${m}:${s}`;
 }
 
-setInterval(atualizar,1000);
+setInterval(atualizar, 1000);
 
-/* MÚSICA MAIS RÁPIDA */
+/* MÚSICA */
 function tocar() {
-  const player = document.getElementById("player");
-  player.src = "https://www.youtube.com/embed/ILRs2r6lcHY?autoplay=1&mute=0&loop=1&playlist=ILRs2r6lcHY";
+  document.getElementById("player").src =
+  "https://www.youtube.com/embed/ILRs2r6lcHY?autoplay=1&loop=1&playlist=ILRs2r6lcHY";
 }
 </script>
 
