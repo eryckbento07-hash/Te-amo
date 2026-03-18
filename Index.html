@@ -3,122 +3,116 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Julia ❤️</title>
+<title>Para Julia</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 body {
   margin: 0;
-  background: #faf7f7;
+  background: #fbf8f8;
   font-family: 'Inter', sans-serif;
-  color: #555;
+  color: #5a5a5a;
 }
 
-/* TELA INICIAL */
+/* tela inicial */
 #start {
   position: fixed;
-  width: 100%;
-  height: 100%;
-  background: #faf7f7;
+  inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  background: #fbf8f8;
   cursor: pointer;
   text-align: center;
 }
 
 #start h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 28px;
-  color: #d88c9a;
-  margin-bottom: 10px;
+  font-size: 26px;
+  color: #c98b95;
+  margin-bottom: 8px;
+  font-weight: 500;
 }
 
-#start p {
-  font-size: 14px;
-  opacity: 0.6;
+#start span {
+  font-size: 13px;
+  opacity: 0.5;
 }
 
-/* CARTA */
+/* layout carta */
 #content {
   display: none;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 24px;
 }
 
 .card {
-  background: white;
-  max-width: 600px;
   width: 100%;
-  padding: 40px 30px;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  max-width: 520px;
+  background: #ffffff;
+  padding: 42px 32px;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.04);
   text-align: center;
-  animation: fadeIn 1.5s ease;
+  animation: fade 1.2s ease;
 }
 
 h2 {
   font-family: 'Playfair Display', serif;
-  color: #d88c9a;
-  margin-bottom: 25px;
+  font-size: 24px;
+  color: #c98b95;
+  margin-bottom: 28px;
 }
 
 .texto {
+  font-size: 16px;
   line-height: 1.9;
-  font-size: 17px;
   white-space: pre-line;
 }
 
 #tempo {
-  margin-top: 25px;
-  font-size: 15px;
-  color: #888;
+  margin-top: 28px;
+  font-size: 14px;
+  color: #999;
+  line-height: 1.6;
 }
 
 .heart {
   margin-top: 25px;
-  font-size: 20px;
-  animation: pulse 1.5s infinite;
+  font-size: 18px;
+  opacity: 0.8;
 }
 
-/* ANIMAÇÕES */
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(10px);}
+/* animação suave */
+@keyframes fade {
+  from {opacity: 0; transform: translateY(8px);}
   to {opacity: 1; transform: translateY(0);}
-}
-
-@keyframes pulse {
-  0% {transform: scale(1);}
-  50% {transform: scale(1.15);}
-  100% {transform: scale(1);}
 }
 </style>
 </head>
 
 <body>
 
-<!-- TELA INICIAL -->
 <div id="start" onclick="abrir()">
-  <h1>Uma mensagem para você, Julia</h1>
-  <p>clique para abrir 💌</p>
+  <h1>Para você, Julia</h1>
+  <span>toque para abrir</span>
 </div>
 
-<!-- CONTEÚDO -->
 <div id="content">
   <div class="card">
-    <h2>Para Julia 💖</h2>
+    <h2>Julia</h2>
     <div id="mensagem" class="texto"></div>
     <div id="tempo"></div>
-    <div class="heart">❤️</div>
+    <div class="heart">❤</div>
   </div>
 </div>
 
-<!-- MÚSICA -->
+<!-- música -->
 <iframe width="0" height="0"
 src="https://www.youtube.com/embed/ILRs2r6lcHY?autoplay=1&loop=1&playlist=ILRs2r6lcHY"
 allow="autoplay"></iframe>
@@ -132,32 +126,33 @@ function abrir() {
   setInterval(calcularTempo, 1000);
 }
 
-/* TEXTO */
-const texto = `Julia...
+/* texto estilo DearYou */
+const texto = `Julia,
 
-Eu não quero apressar as coisas.
+eu não quero apressar nada.
 
-Quero te conhecer no seu tempo,
-entender cada detalhe seu,
-e te amar com calma...
+quero te conhecer com calma,
+no seu tempo,
+do seu jeito.
 
-Quero ser alguém que te faça bem,
-que respeita seu espaço,
+quero ser alguém leve na sua vida,
+alguém que te faça bem,
+que te respeita,
 e que escolhe você todos os dias.
 
-Porque você é muito especial pra mim. 💖`;
+porque você é especial pra mim.`;
 
+/* efeito digitação */
 let i = 0;
-
 function escrever() {
   if (i < texto.length) {
     document.getElementById("mensagem").innerHTML += texto.charAt(i);
     i++;
-    setTimeout(escrever, 30);
+    setTimeout(escrever, 28);
   }
 }
 
-/* DATA */
+/* data relacionamento */
 const dataInicio = new Date("2025-12-10T00:00:00"); // ALTERA
 
 function calcularTempo() {
@@ -180,11 +175,10 @@ function calcularTempo() {
   if (meses < 0) { meses += 12; anos--; }
 
   document.getElementById("tempo").innerHTML =
-    `Desde que tudo começou:<br>
-     ${anos} ano(s), ${meses} mês(es), ${dias} dia(s)<br>
-     ${horas}h ${minutos}m ${segundos}s 💖`;
+    `${anos} anos, ${meses} meses, ${dias} dias<br>
+     ${horas}h ${minutos}m ${segundos}s`;
 }
 </script>
 
 </body>
-</html>
+  </html>
