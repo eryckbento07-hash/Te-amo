@@ -5,75 +5,79 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Para Você ❤️</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300&display=swap" rel="stylesheet">
+
 <style>
 body {
   margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  background: #fdf6f6;
+  color: #444;
 }
 
 /* TELA INICIAL */
-#startScreen {
+#start {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  background: #fdf6f6;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 28px;
+  flex-direction: column;
   cursor: pointer;
 }
 
+#start h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  color: #e89cae;
+}
+
+#start p {
+  font-size: 16px;
+  opacity: 0.7;
+}
+
 /* CONTEÚDO */
-#mainContent {
+#content {
   display: none;
-  height: 100vh;
-  background: linear-gradient(to bottom, #ff758c, #ff7eb3);
-  color: white;
-  text-align: center;
-  padding: 20px;
-}
-
-.container {
-  margin-top: 20%;
+  padding: 40px 20px;
   max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
+  text-align: center;
+  animation: fadeIn 2s ease;
 }
 
-h1 {
-  font-size: 40px;
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  margin-bottom: 20px;
 }
 
 p {
-  font-size: 20px;
-  line-height: 1.6;
+  line-height: 1.8;
+  font-size: 18px;
+  white-space: pre-line;
 }
 
-/* ANIMAÇÃO TEXTO */
-.typing {
-  border-right: 2px solid white;
-  white-space: nowrap;
-  overflow: hidden;
-  display: inline-block;
+/* ANIMAÇÃO */
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
 
-/* CORAÇÕES */
+/* CORAÇÃO */
 .heart {
-  position: fixed;
-  bottom: -10px;
-  font-size: 20px;
-  animation: floatUp 5s linear infinite;
+  margin-top: 30px;
+  font-size: 24px;
+  animation: pulse 1.5s infinite;
 }
 
-@keyframes floatUp {
-  to {
-    transform: translateY(-110vh);
-    opacity: 0;
-  }
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
 }
 </style>
 </head>
@@ -81,64 +85,47 @@ p {
 <body>
 
 <!-- TELA INICIAL -->
-<div id="startScreen" onclick="startSite()">
-  💌 Clique para abrir
+<div id="start" onclick="abrir()">
+  <h1>Uma mensagem pra você</h1>
+  <p>clique para abrir 💌</p>
 </div>
 
-<!-- CONTEÚDO PRINCIPAL -->
-<div id="mainContent">
-  <div class="container">
-    <h1>Para você 💖</h1>
-    <p id="text" class="typing"></p>
-  </div>
+<!-- CONTEÚDO -->
+<div id="content">
+  <h2>Para você 💖</h2>
+  <p id="mensagem"></p>
+  <div class="heart">❤️</div>
 </div>
-
-<!-- MÚSICA -->
-<audio id="music" loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
 
 <script>
-function startSite() {
-  document.getElementById("startScreen").style.display = "none";
-  document.getElementById("mainContent").style.display = "block";
-  
-  document.getElementById("music").play();
-
-  startTyping();
-  createHearts();
+function abrir() {
+  document.getElementById("start").style.display = "none";
+  document.getElementById("content").style.display = "block";
+  escrever();
 }
 
-/* TEXTO QUE VAI APARECER */
-const message = "Eu não quero apressar as coisas... só quero te conhecer melhor, te amar com calma e te fazer sentir o quanto você é especial pra mim. 💖";
+const texto = `Eu não quero apressar as coisas...
 
-/* EFEITO DIGITAÇÃO */
+Quero te conhecer no seu tempo,
+entender cada detalhe seu,
+e te amar com calma...
+
+Quero ser alguém que te faz bem,
+que respeita seu espaço,
+e que escolhe você todos os dias.
+
+Porque você é especial pra mim. 💖`;
+
 let i = 0;
-function startTyping() {
-  if (i < message.length) {
-    document.getElementById("text").innerHTML += message.charAt(i);
+
+function escrever() {
+  if (i < texto.length) {
+    document.getElementById("mensagem").innerHTML += texto.charAt(i);
     i++;
-    setTimeout(startTyping, 50);
+    setTimeout(escrever, 35);
   }
-}
-
-/* CORAÇÕES SUBINDO */
-function createHearts() {
-  setInterval(() => {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
-
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-      heart.remove();
-    }, 5000);
-  }, 300);
 }
 </script>
 
 </body>
-  </html>
+</html>
