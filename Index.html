@@ -5,24 +5,47 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Para Julia 💖</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
+* {margin:0; padding:0; box-sizing:border-box;}
+
 body {
-  margin: 0;
   font-family: 'Inter', sans-serif;
-  background: radial-gradient(circle at center, #3a0a3f, #120012);
-  color: white;
-  text-align: center;
+  color: #fff;
+  background: radial-gradient(circle at center, #3b0a3f 0%, #140014 100%);
+  overflow-x: hidden;
 }
 
-/* FUNDO COM BRILHO */
+/* FUNDO GLOW ANIMADO */
 .glow {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, rgba(255,0,150,0.2), transparent 70%);
+  background: radial-gradient(circle, rgba(255,105,180,0.25), transparent 70%);
+  animation: pulse 6s infinite alternate;
   z-index: 0;
+}
+
+@keyframes pulse {
+  from {opacity: 0.4; transform: scale(1);}
+  to {opacity: 0.7; transform: scale(1.2);}
+}
+
+/* PARTÍCULAS */
+.particle {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: pink;
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: float 10s linear infinite;
+}
+
+@keyframes float {
+  from {transform: translateY(100vh);}
+  to {transform: translateY(-10vh);}
 }
 
 /* CONTAINER */
@@ -30,23 +53,24 @@ body {
   position: relative;
   z-index: 1;
   padding: 30px 20px;
+  text-align: center;
 }
 
 /* TÍTULO */
-h1 {
+.title {
   font-family: 'Playfair Display', serif;
-  font-size: 36px;
+  font-size: 38px;
   margin-top: 40px;
 }
 
 .heart {
-  font-size: 40px;
+  font-size: 42px;
   color: #ff6fa5;
 }
 
 /* DATA */
 .date {
-  margin: 15px 0;
+  margin-top: 10px;
   opacity: 0.7;
 }
 
@@ -55,54 +79,84 @@ h1 {
   display: flex;
   justify-content: center;
   gap: 15px;
-  margin-top: 25px;
+  margin-top: 30px;
 }
 
 .box {
-  background: rgba(255,255,255,0.05);
-  border-radius: 15px;
+  width: 110px;
   padding: 20px;
-  width: 100px;
-  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(15px);
 }
 
 .box span {
-  font-size: 28px;
+  font-size: 30px;
   display: block;
 }
 
 .box small {
+  font-size: 12px;
   opacity: 0.6;
 }
 
 /* RELÓGIO */
 .clock {
   margin-top: 25px;
-  padding: 12px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.05);
+  padding: 12px 20px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.06);
   display: inline-block;
 }
 
-/* TEXTO */
+/* CARD TEXTO */
 .card {
-  margin-top: 40px;
-  padding: 25px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(10px);
-  line-height: 1.8;
+  margin-top: 50px;
+  padding: 30px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(20px);
+  line-height: 1.9;
 }
 
-/* BOTÃO MÚSICA */
+/* MÚSICA */
 .music {
-  margin-top: 30px;
-  padding: 15px;
+  margin-top: 40px;
+  padding: 25px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(20px);
+}
+
+.btn {
+  margin-top: 15px;
+  padding: 12px 20px;
   border-radius: 20px;
-  background: rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.1);
   cursor: pointer;
 }
 
+/* DIVISOR */
+.divider {
+  margin: 40px auto;
+  width: 60%;
+  height: 1px;
+  background: rgba(255,255,255,0.2);
+  position: relative;
+}
+
+.divider::after {
+  content: "💖";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -12px;
+}
+
+/* SCROLL SUAVE */
+html {
+  scroll-behavior: smooth;
+}
 </style>
 </head>
 
@@ -110,10 +164,21 @@ h1 {
 
 <div class="glow"></div>
 
+<!-- PARTÍCULAS -->
+<script>
+for (let i = 0; i < 25; i++) {
+  let p = document.createElement("div");
+  p.className = "particle";
+  p.style.left = Math.random()*100+"vw";
+  p.style.animationDuration = (5+Math.random()*10)+"s";
+  document.body.appendChild(p);
+}
+</script>
+
 <div class="container">
 
 <div class="heart">💖</div>
-<h1>Para o amor da minha vida</h1>
+<div class="title">Para o amor da minha vida</div>
 
 <div class="date">
 Juntos desde <b>20 de novembro de 2025</b>
@@ -130,54 +195,59 @@ Juntos desde <b>20 de novembro de 2025</b>
   </div>
 </div>
 
-<div class="clock" id="relogio">00:00:00</div>
+<div class="clock" id="clock">00:00:00</div>
+
+<div class="divider"></div>
 
 <div class="card">
-Desde o primeiro dia em que te vi, soube que minha vida jamais seria a mesma...
+Desde o primeiro dia em que te vi, soube que minha vida jamais seria a mesma.
 
-Você é meu porto seguro, minha paz e minha maior aventura. 💖
+Cada momento ao seu lado é uma bênção, e cada sorriso seu ilumina meu mundo.
+
+Você é minha paz, meu porto seguro e minha maior aventura. 💖
 </div>
 
-<div class="music" onclick="tocarMusica()">
-▶ Clique para tocar nossa música
+<div class="divider"></div>
+
+<div class="music">
+<h3>Nossa Música 🎵</h3>
+<p>A trilha sonora do nosso amor</p>
+<div class="btn" onclick="tocar()">▶ Clique para ouvir</div>
 </div>
 
 </div>
 
-<!-- MÚSICA -->
-<iframe id="player" width="0" height="0"
-src=""
-allow="autoplay"></iframe>
+<!-- PLAYER -->
+<iframe id="player" width="0" height="0" allow="autoplay"></iframe>
 
 <script>
-const dataInicio = new Date("2025-11-20T00:00:00"); // ALTERA
+const inicio = new Date("2025-11-20T00:00:00"); // ALTERA
 
-function atualizarTempo() {
+function atualizar() {
   const agora = new Date();
 
-  let meses = (agora.getFullYear() - dataInicio.getFullYear()) * 12;
-  meses += agora.getMonth() - dataInicio.getMonth();
+  let meses = (agora.getFullYear()-inicio.getFullYear())*12;
+  meses += agora.getMonth()-inicio.getMonth();
 
-  let dias = agora.getDate() - dataInicio.getDate();
+  let dias = agora.getDate()-inicio.getDate();
   if (dias < 0) {
     meses--;
-    const ultimoMes = new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
-    dias += ultimoMes;
+    dias += new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
   }
 
-  let horas = agora.getHours().toString().padStart(2,'0');
-  let minutos = agora.getMinutes().toString().padStart(2,'0');
-  let segundos = agora.getSeconds().toString().padStart(2,'0');
+  let h = String(agora.getHours()).padStart(2,'0');
+  let m = String(agora.getMinutes()).padStart(2,'0');
+  let s = String(agora.getSeconds()).padStart(2,'0');
 
   document.getElementById("meses").innerText = meses;
   document.getElementById("dias").innerText = dias;
-  document.getElementById("relogio").innerText = `${horas}:${minutos}:${segundos}`;
+  document.getElementById("clock").innerText = `${h}:${m}:${s}`;
 }
 
-setInterval(atualizarTempo, 1000);
+setInterval(atualizar,1000);
 
 /* MÚSICA */
-function tocarMusica() {
+function tocar() {
   document.getElementById("player").src =
   "https://www.youtube.com/embed/ILRs2r6lcHY?autoplay=1&loop=1&playlist=ILRs2r6lcHY";
 }
