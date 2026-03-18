@@ -8,244 +8,228 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
-* {margin:0;padding:0;box-sizing:border-box;}
+* {margin:0; padding:0; box-sizing:border-box;}
 
-body{
-  font-family:'Inter',sans-serif;
-  color:#fff;
-  background:radial-gradient(circle,#3b0a3f,#140014);
-  overflow-x:hidden;
+body {
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+  background: radial-gradient(circle at center, #3b0a3f 0%, #140014 100%);
+  text-align: center;
+  overflow-x: hidden;
 }
 
 /* ESTRELAS */
-.star{
-  position:fixed;
-  width:2px;height:2px;
-  background:white;
-  opacity:0.5;
-  animation:twinkle 2s infinite alternate;
-}
-@keyframes twinkle{
-  from{opacity:0.2;}
-  to{opacity:1;}
+.stars {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: url("https://www.transparenttextures.com/patterns/stardust.png");
+  animation: moveStars 60s linear infinite;
+  opacity: 0.3;
 }
 
-/* ESCURECER */
-.overlay{
-  position:fixed;
-  width:100%;height:100%;
-  background:black;
+@keyframes moveStars {
+  from {background-position: 0 0;}
+  to {background-position: 1000px 1000px;}
+}
+
+/* ESCURECER TELA */
+.overlay {
+  position: fixed;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.6);
   opacity:0;
-  pointer-events:none;
   transition:0.5s;
+  pointer-events:none;
 }
 
-/* CONTAINER */
-.container{padding:30px;text-align:center;}
-
-.heart{
-  font-size:45px;
-  color:#ff6fa5;
-  animation:beat 1s infinite;
+/* CORAÇÃO BATENDO */
+.heart {
+  font-size: 45px;
+  color: #ff6fa5;
+  animation: beat 1s infinite;
 }
-@keyframes beat{
-  0%,100%{transform:scale(1);}
+
+@keyframes beat {
+  0%{transform:scale(1);}
   50%{transform:scale(1.2);}
+  100%{transform:scale(1);}
 }
 
-.title{
-  font-family:'Playfair Display';
-  font-size:38px;
+.container { padding: 30px 20px; }
+
+.title {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  margin-top: 20px;
 }
 
-/* BOX */
-.boxes{
+.boxes {
   display:flex;
   justify-content:center;
   gap:20px;
-  margin-top:30px;
+  margin-top:40px;
 }
 
-.box{
-  width:110px;height:110px;
-  border-radius:20px;
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(20px);
-  border:1px solid rgba(255,105,180,0.4);
+.box {
+  width:120px;
+  height:120px;
+  border-radius:25px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,105,180,0.4);
   display:flex;
   flex-direction:column;
   justify-content:center;
 }
 
-.box span{
-  font-size:35px;
-  font-family:'Playfair Display';
+.box span {
+  font-size:40px;
 }
 
-/* TEXTO */
-.card{
+/* TEXTO SURGINDO */
+.card {
   margin-top:40px;
   padding:25px;
-  border-radius:20px;
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(20px);
-  text-align:left;
-  min-height:200px;
+  border-radius:25px;
+  background: rgba(255,255,255,0.05);
+  opacity:0;
+  transform: translateY(20px);
+  transition:1s;
 }
 
 /* MÚSICA */
-.music-card{
+.music-card {
   margin-top:50px;
-  padding:30px;
+  padding:25px;
   border-radius:25px;
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(20px);
+  background: rgba(255,255,255,0.05);
 }
 
-.music-btn{
+.music-btn {
   margin-top:15px;
   padding:15px;
   border-radius:20px;
-  background:rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.3);
   cursor:pointer;
+  transition:0.3s;
 }
 
-.music-img{
-  width:200px;
-  border-radius:20px;
-  margin-top:15px;
+.music-btn.playing {
+  background:#ff6fa5;
 }
 
-/* PROGRESSO */
-.bar{
+/* BARRA */
+.progress {
   width:100%;
-  height:6px;
-  background:#333;
+  height:5px;
+  background:#444;
+  margin-top:10px;
   border-radius:10px;
-  margin-top:15px;
+  overflow:hidden;
 }
-.progress{
+
+.progress div {
   height:100%;
   width:0%;
   background:#ff6fa5;
-  border-radius:10px;
+  animation: progress 180s linear forwards;
+}
+
+@keyframes progress {
+  from {width:0;}
+  to {width:100%;}
+}
+
+.music-img {
+  width:200px;
+  border-radius:20px;
+  margin-top:15px;
 }
 </style>
 </head>
 
 <body>
 
+<div class="stars"></div>
 <div class="overlay" id="overlay"></div>
-
-<!-- ESTRELAS -->
-<script>
-for(let i=0;i<50;i++){
- let s=document.createElement("div");
- s.className="star";
- s.style.left=Math.random()*100+"vw";
- s.style.top=Math.random()*100+"vh";
- document.body.appendChild(s);
-}
-</script>
 
 <div class="container">
 
 <div class="heart">💖</div>
-<div class="title">Para Julia</div>
+<div class="title">Para o amor da minha vida!</div>
 
 <div class="boxes">
-  <div class="box"><span id="meses">0</span><small>MESES</small></div>
-  <div class="box"><span id="dias">0</span><small>DIAS</small></div>
+  <div class="box">
+    <span id="meses">0</span>
+    <small>MESES</small>
+  </div>
+
+  <div class="box">
+    <span id="dias">0</span>
+    <small>DIAS</small>
+  </div>
 </div>
 
-<div class="card" id="texto"></div>
+<div class="card" id="texto">
+Julia,<br><br>
+Desde que você entrou na minha vida, tudo ganhou mais cor... 💖
+</div>
 
-<!-- MÚSICA -->
 <div class="music-card">
 
-<div class="music-btn" id="btn" onclick="descobrir()">▶ Descobrir</div>
+<div class="music-btn" id="btn" onclick="tocar()">▶ Descobrir música</div>
 
 <div id="musica" style="display:none;">
-
 <img src="https://img.youtube.com/vi/sRITrFmTT3s/maxresdefault.jpg" class="music-img">
 
-<div class="music-btn" id="playBtn" onclick="tocar()">▶ Ouvir</div>
+<div class="progress"><div></div></div>
+
 <div class="music-btn" onclick="pausar()">⏸ Pausar</div>
-
-<div class="bar"><div class="progress" id="progress"></div></div>
-
 </div>
 
 </div>
 
 </div>
 
-<iframe id="player" width="0" height="0"></iframe>
+<iframe id="player" width="0" height="0" allow="autoplay"></iframe>
 
 <script>
-const inicio=new Date(2026,0,8);
+const inicio = new Date(2026,0,8);
 
 function atualizar(){
- let agora=new Date();
-
- let meses=(agora.getFullYear()-inicio.getFullYear())*12+
- (agora.getMonth()-inicio.getMonth());
-
- let dias=agora.getDate()-inicio.getDate();
- if(dias<0){
-   meses--;
-   dias+=new Date(agora.getFullYear(),agora.getMonth(),0).getDate();
- }
-
- document.getElementById("meses").innerText=meses;
- document.getElementById("dias").innerText=dias;
+ const agora = new Date();
+ const diff = Math.floor((agora - inicio)/(1000*60*60*24));
+ document.getElementById("dias").innerText = diff;
+ document.getElementById("meses").innerText = Math.floor(diff/30);
 }
 setInterval(atualizar,1000);
 
-/* TEXTO DIGITANDO */
-const texto=`Julia,
+/* REVELAÇÃO TEXTO */
+setTimeout(()=>{
+ document.getElementById("texto").style.opacity=1;
+ document.getElementById("texto").style.transform="translateY(0)";
+},1500);
 
-Desde que você entrou na minha vida, tudo ganhou mais cor...
-
-Eu só quero continuar vivendo tudo isso com você. 💖`;
-
-let i=0;
-function escrever(){
- if(i<texto.length){
-  document.getElementById("texto").innerHTML+=texto.charAt(i);
-  i++;
-  setTimeout(escrever,30);
- }
-}
-escrever();
-
-/* BOTÕES */
-function descobrir(){
- document.getElementById("btn").style.display="none";
- document.getElementById("musica").style.display="block";
-}
-
-let progresso=0;
-let intervalo;
-
+/* MÚSICA */
 function tocar(){
- document.getElementById("player").src=
- "https://www.youtube.com/embed/sRITrFmTT3s?autoplay=1";
+ document.getElementById("overlay").style.opacity=1;
 
- document.getElementById("overlay").style.opacity="0.5";
+ let player = document.getElementById("player");
+ player.src="https://www.youtube.com/embed/sRITrFmTT3s?autoplay=1";
 
- document.getElementById("playBtn").innerText="🎶 Tocando...";
+ document.getElementById("btn").innerText="🎶 Tocando...";
+ document.getElementById("btn").classList.add("playing");
 
- intervalo=setInterval(()=>{
-   progresso+=0.5;
-   document.getElementById("progress").style.width=progresso+"%";
- },200);
+ document.getElementById("musica").style.display="block";
 }
 
 function pausar(){
  document.getElementById("player").src="";
- document.getElementById("overlay").style.opacity="0";
- clearInterval(intervalo);
+ document.getElementById("overlay").style.opacity=0;
+ document.getElementById("btn").innerText="▶ Descobrir música";
+ document.getElementById("btn").classList.remove("playing");
 }
 </script>
 
